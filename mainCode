@@ -1,0 +1,87 @@
+//Title:      Calculating the utility total cost
+//Name:       Lidia Laskova
+
+//This program will input the customer id and 3 utility scores from the txt file
+//And will calculate the total price a customer would need to pay
+
+//Input (from file "utility.txt")
+//Customer Number
+// Used water gallons
+//Used electricity  kilowatt
+//Used gas cubic foot
+
+//Output will be displayed on a screen  :
+//Provided data, each charge and the total cost
+
+#include <iostream>
+#include <iomanip>
+#include <fstream>
+using namespace std;
+
+int main()
+{
+
+	int custId;   //Declare customer Number
+
+	//Declare utilities
+	double water;
+	int electricity;
+	double gas;
+
+	//Declare the charges of every utility
+	double chargeWater;
+	double chargeElectricity;
+	double chargeGas;
+	double totalCost;  // Total cost of charge for all utilities
+
+	const double PRICE_WATER = 0.02;  //Constant for charges for water
+	const double PRICE_ELECTRICTY = 0.24; //Constant for charges for electricity
+	const double PRICE_GAS = 0.39; //Constant for charges for gas
+
+	//Declare file stream variables 
+	ifstream inputFile;
+
+
+	//Open the file
+	inputFile.open("utility.txt");
+
+	//Check the file
+	if (!inputFile) {
+		cout << endl << "Failed to open file " << "utility.txt";
+		return 1;
+	}
+
+	//Read data(Customer ID and 3 utility scores) from input file
+	inputFile >> custId;
+	inputFile >> water;
+	inputFile >> electricity;
+	inputFile >> gas;
+
+
+	inputFile.close(); //close input file
+
+	chargeWater = PRICE_WATER * water; //Calculate the water charge
+	chargeElectricity = PRICE_ELECTRICTY * electricity; //Calculate the electricity charge
+	chargeGas = PRICE_GAS * gas; //Calculate the gas charge
+	totalCost = chargeWater + chargeElectricity + chargeGas; //Calculate the total charge
+
+	//Design the screen window and display input data and calculations with showing different costs
+	cout << "_______________________________________________________________" << endl;
+	cout << setw(45) << left << "Brentwood City Utilities" << setw(10) << right << "Customer #" << custId << fixed << endl;
+	cout << setw(40) << setfill(' ') << fixed << endl;
+
+
+	cout << setw(17) << left << "Water" << setw(7) << setprecision(2) << water << setw(20) << "gallons at $0.02" << setw(10) << right << setprecision(2) << "$" << setw(7) << chargeWater << fixed << endl;
+	cout << setw(17) << left << "Electricity" << setw(7) << electricity << setw(20) << "kilowatt at $0.24" << setw(10) << right << "$"  << showpoint << setprecision(2) << setw(7) << chargeElectricity << endl;
+	cout << setw(17) << left << "Gas" << setw(7) << gas << setw(20) << "cubic foot at $0.39" << setw(10) << right << "$" << setw(7) << chargeGas << endl;
+
+
+	cout << setw(38) << setfill(' ') << fixed << endl;
+	cout << "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -" << endl;
+	cout << setw(15) << left << "Total" << setw(40) << right << "$" << totalCost << endl;
+	cout << "________________________________________________________________" << endl;
+
+	return 0;
+
+   }
+
